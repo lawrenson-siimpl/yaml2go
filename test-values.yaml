@@ -1,0 +1,26 @@
+kubeProxyReplacement: false
+
+ipam:
+  mode: kubernetes
+
+image:
+  repository: "dhi/cilium"
+  tag: "1.18.4"
+  useDigest: false
+    
+imagePullSecrets:
+  - name: regcred
+
+operator:
+  replicas: 1
+    
+hubble:
+  enabled: false
+
+extraHostPathMounts:
+  - name: "cilium-cgroup-override"
+    mountPath: "/run/cilium/cgroupv2"
+    hostPath: "/sys/fs/cgroup"
+    hostPathType: "Directory"
+    readOnly: true
+    mountPropagation: "HostToContainer"
